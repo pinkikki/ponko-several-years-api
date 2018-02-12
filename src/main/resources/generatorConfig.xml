@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+  <context id="context1">
+    <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://192.168.99.100:5432/several-years" userId="several-years"
+                    password="password"/>
+    <javaModelGenerator targetPackage="jp.pinkikki.domain.hero.model"
+                        targetProject="src/main/java"/>
+    <sqlMapGenerator targetPackage="jp.pinkikki.domain.hero.mapper"
+                     targetProject="src/main/java"/>
+    <javaClientGenerator targetPackage="jp.pinkikki.domain.hero.mapper"
+                         targetProject="src/main/java"
+                         type="XMLMAPPER"/>
+    <table tableName="event"/>
+    <table tableName="event_detail"/>
+  </context>
+</generatorConfiguration>

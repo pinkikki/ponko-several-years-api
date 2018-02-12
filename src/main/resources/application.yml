@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    username: several-years
+    password: password
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.99.100:5432/several-years
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+server:
+  port: 8090
