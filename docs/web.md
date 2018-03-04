@@ -49,3 +49,20 @@ public class CustomServletRequestListener implements ServletRequestListener {
 
 ＜参考文献＞
 https://qiita.com/kazuki43zoo/items/757b557c05f548c6c5db
+
+## リクエスト共通の処理
+
+順に、
+
+* javax.servlet.Filter.ServletRequestListene
+* javax.servlet.Filter
+* HandlerInterceptor
+* @ControllerAdvice
+* @Aspect
+
+がある。
+Controllerに処理を割り込みたい場合は、基本的に`HandlerInterceptor`を使用するのかな。
+`@Aspect`でもできそうな気がするけど。
+
+＜参考文献＞
+https://qiita.com/kazuki43zoo/items/757b557c05f548c6c5db

@@ -13,8 +13,11 @@ import java.util.List;
 @Transactional
 public class EventService {
 
-    @Autowired
-    EventMapper eventMapper;
+    final EventMapper eventMapper;
+
+    public EventService(EventMapper eventMapper) {
+        this.eventMapper = eventMapper;
+    }
 
     public List<Event> findAll() {
         return eventMapper.selectByExample(null);
@@ -30,14 +33,14 @@ public class EventService {
         return eventMapper.selectByExample(eventExample);
     }
 
-    public List<Event> findByTwoEventId() {
+    public List<Event> findByTwoEventId(int eventId) {
         EventExample eventExample = new EventExample();
         eventExample
                 .createCriteria()
-                .andEventIdEqualTo(1);
-        eventExample
-                .or()
-                .andEventIdEqualTo(2);
+                .andEventIdEqualTo(eventId);
+//        eventExample
+//                .or()
+//                .andEventIdEqualTo(2);
 
         return eventMapper.selectByExample(eventExample);
     }
