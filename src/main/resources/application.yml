@@ -11,3 +11,6 @@ mybatis:
     default-statement-timeout: 30
 server:
   port: 8090
+management:
+  security:
+    enabled: false

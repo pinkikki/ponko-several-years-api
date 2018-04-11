@@ -3,17 +3,16 @@ package jp.pinkikki.app.hero;
 import jp.pinkikki.domain.hero.model.Event;
 import jp.pinkikki.domain.hero.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collections;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 //@CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -35,14 +34,28 @@ public class EventController {
     }
 
     @GetMapping(path = "find")
-    public List<Event> findByExample(@Validated EventForm eventForm)
-    {
+    public List<Event> findByExample(@Validated EventForm eventForm) {
         return eventService.findByTwoEventId(eventForm.getEventId());
     }
 
     @GetMapping(path = "find/{eventId}")
-    public List<Event> findByEventId(@Validated EventForm eventForm)
-    {
+    public List<Event> findByEventId(@Validated EventForm eventForm) {
         return eventService.findByTwoEventId(eventForm.getEventId());
+    }
+
+    @PostMapping(path = "upload")
+    public ResponseEntity<byte[]> upload(@RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + file.getOriginalFilename() + "\"")
+                .body(file.getBytes());
+    }
+
+    @PostMapping(path = "upload2")
+    public void upload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
+        response.setHeader("Content-Disposition",
+                "attachment; filename=\"" + file.getOriginalFilename() + "\"");
+        FileCopyUtils.copy(file.getInputStream(), response.getOutputStream());
     }
 }
